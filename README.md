@@ -1,26 +1,28 @@
 # Joomla 5 Webservices Plugin: Helloworld
 
-> **⚠️ This plugin is currently a work in progress and not yet functional.**
+> **✅ This plugin has been updated to use the proper Joomla 5 structure with PSR-4 namespacing and service providers.**
 >  
-> You are welcome to contribute, troubleshoot, or follow along as we work to make a minimal custom API plugin for Joomla 5.
+> The plugin should now work correctly with Joomla 5's modern webservices architecture.
 
 ---
 
-This repository contains an early attempt at a **custom Joomla 5 webservices plugin** called `Helloworld`. The goal is to register a simple API endpoint (`/api/index.php/v1/helloworld/ping`) that returns a JSON response, and serve as a starting point for your own Joomla 5 API plugins.
+This repository contains a **custom Joomla 5 webservices plugin** called `Helloworld`. It registers a simple API endpoint (`/api/index.php/v1/helloworld/ping`) that returns a JSON response, and serves as a starting point for your own Joomla 5 API plugins.
 
 ## Features
 
-- Intended for **Joomla 5.x**
+- **Joomla 5.x compatible** with modern PSR-4 namespacing
+- Uses service provider pattern with dependency injection
+- Implements `SubscriberInterface` for proper event handling
 - Registers a custom API route: `/helloworld/ping`
-- Should return a test JSON response: `{ "hello": "world" }`
-- Easy to adapt and extend (when working!)
+- Returns a test JSON response: `{ "hello": "world" }`
+- Easy to adapt and extend
 
 ## Current Status
 
-- **Work in progress:** The plugin does **not** currently work as intended.
-- If you test the endpoint, you will likely get a `404 Resource not found` error.
-- We are investigating why the plugin isn't being registered or loaded by Joomla 5.
-- Pull requests and debug help are very welcome!
+- **Updated:** The plugin now uses the proper Joomla 5 structure
+- Migrated from old Joomla 4 single-file approach to modern architecture
+- Uses `BeforeApiRouteEvent` instead of direct `ApiRouter` parameter
+- Should work correctly with Joomla 5 installations
 
 ## Normal Installation (recommended)
 
@@ -43,7 +45,7 @@ This repository contains an early attempt at a **custom Joomla 5 webservices plu
 
 ## Usage
 
-> **Note:** The endpoint does **not** currently function, but when working, you will be able to test with:
+Test the API endpoint with:
 
 ```bash
 curl -X GET "https://your-joomla-site/api/index.php/v1/helloworld/ping"
@@ -53,7 +55,6 @@ You should get a JSON response like:
 ```json
 {"hello": "world"}
 ```
-But currently, you will likely get a `404 Resource not found` error.
 
 ## File Structure
 
@@ -61,16 +62,24 @@ But currently, you will likely get a `404 Resource not found` error.
 plugins/
 └── webservices/
     └── helloworld/
-        ├── helloworld.php
-        └── helloworld.xml
+        ├── helloworld.xml
+        ├── services/
+        │   └── provider.php
+        └── src/
+            └── Extension/
+                └── Helloworld.php
 ```
 
 ## Development Notes
 
-- The plugin uses Joomla 5’s new `onBeforeApiRoute` event to register routes.
-- No additional routing files or legacy hooks are needed for Joomla 5.
-- The class name **must** be `PlgWebservicesHelloworld`, and the plugin folder and filenames should be lowercase.
-- **Troubleshooting is ongoing!**
+- The plugin uses Joomla 5's modern architecture with PSR-4 namespacing
+- Implements `SubscriberInterface` for proper event subscription
+- Uses `BeforeApiRouteEvent` instead of direct `ApiRouter` parameter
+- Service provider pattern with dependency injection container
+- Uses `onBeforeApiRoute` event to register API routes
+- No additional routing files or legacy hooks are needed for Joomla 5
+- The namespace is `Joomla\Plugin\Webservices\Helloworld` as defined in the manifest
+
 
 ## Resources
 
