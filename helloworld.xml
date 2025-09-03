@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="webservices" method="upgrade">
+    <name>plg_webservices_helloworld</name>
+    <author>Your Name</author>
+    <version>1.0.0</version>
+    <description>Minimal webservice plugin for Joomla 5 testing</description>
+    <files>
+        <filename plugin="helloworld">helloworld.php</filename>
+    </files>
+</extension>
