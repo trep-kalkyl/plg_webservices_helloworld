@@ -1,49 +1,55 @@
 # Joomla 5 Webservices Plugin: Helloworld
 
-> **⚠️ This plugin is currently a work in progress and not yet functional.**
->  
-> You are welcome to contribute, troubleshoot, or follow along as we work to make a minimal custom API plugin for Joomla 5.
+A **modern Joomla 5 webservices plugin** that follows PSR-4 conventions and implements the latest Joomla 5 best practices for API development.
 
 ---
 
-This repository contains an early attempt at a **custom Joomla 5 webservices plugin** called `Helloworld`. The goal is to register a simple API endpoint (`/api/index.php/v1/helloworld/ping`) that returns a JSON response, and serve as a starting point for your own Joomla 5 API plugins.
+This repository contains a **custom Joomla 5 webservices plugin** called `Helloworld` that registers a simple API endpoint (`/api/index.php/v1/helloworld/ping`) and returns a JSON response. It serves as a modern starting point for your own Joomla 5 API plugins.
 
 ## Features
 
-- Intended for **Joomla 5.x**
+- **Joomla 5.x compatible** with modern PSR-4 structure
+- **SubscriberInterface implementation** for event handling
+- **Service Provider pattern** for dependency injection
+- **Namespace support** following Joomla 5 conventions
 - Registers a custom API route: `/helloworld/ping`
-- Should return a test JSON response: `{ "hello": "world" }`
-- Easy to adapt and extend (when working!)
+- Returns a test JSON response: `{ "hello": "world" }`
+- Easy to adapt and extend
 
-## Current Status
+## Modern Structure
 
-- **Work in progress:** The plugin does **not** currently work as intended.
-- If you test the endpoint, you will likely get a `404 Resource not found` error.
-- We are investigating why the plugin isn't being registered or loaded by Joomla 5.
-- Pull requests and debug help are very welcome!
+This plugin follows Joomla 5 best practices with:
 
-## Normal Installation (recommended)
+- **PSR-4 Namespace**: `Joomla\Plugin\Webservices\Helloworld`
+- **Service Provider**: `services/provider.php` for dependency injection
+- **Extension Class**: `src/Extension/Helloworld.php` with proper interfaces
+- **Event Subscriber**: Implements `SubscriberInterface` for modern event handling
+- **Proper Event Usage**: Uses `BeforeApiRouteEvent` parameter instead of direct router access
 
-1. **Download the latest release** (or create a zip of the `helloworld` folder containing `helloworld.php` and `helloworld.xml`).
+## Installation
+
+### Option 1: Normal Installation (recommended)
+
+1. **Download the latest release** (or create a zip of this entire repository).
 2. In your Joomla administrator panel, go to **System → Install → Extensions**.
 3. **Upload the zip file** you downloaded or created.
 4. After installation, go to **System → Manage → Extensions** (or **Extensions → Plugins**), search for "helloworld" and make sure the plugin is **published** (enabled).
 5. (Optional but recommended) Go to **System → Maintenance → Clear Cache** and clear all caches.
 
-## Manual Installation (for developers)
+### Option 2: Manual Installation (for developers)
 
 1. **Clone or download** this repository.
-2. Copy the `helloworld` folder (containing `helloworld.php` and `helloworld.xml`) into your Joomla site's plugin directory:  
+2. Copy the entire plugin folder (containing all files) into your Joomla site's plugin directory:  
    ```
    plugins/webservices/helloworld/
    ```
-3. In Joomla admin, go to **System → Extensions → Manage → Discover**, find “Webservices - Helloworld” and install.
+3. In Joomla admin, go to **System → Extensions → Manage → Discover**, find "Webservices - Helloworld" and install.
 4. Activate the plugin in **Extensions → Plugins** (search for "helloworld" and publish it).
 5. (Optional) Clear Joomla cache.
 
 ## Usage
 
-> **Note:** The endpoint does **not** currently function, but when working, you will be able to test with:
+Test the API endpoint with:
 
 ```bash
 curl -X GET "https://your-joomla-site/api/index.php/v1/helloworld/ping"
@@ -53,7 +59,6 @@ You should get a JSON response like:
 ```json
 {"hello": "world"}
 ```
-But currently, you will likely get a `404 Resource not found` error.
 
 ## File Structure
 
@@ -61,16 +66,29 @@ But currently, you will likely get a `404 Resource not found` error.
 plugins/
 └── webservices/
     └── helloworld/
-        ├── helloworld.php
-        └── helloworld.xml
+        ├── helloworld.php          # Legacy entry point
+        ├── helloworld.xml          # Plugin manifest with namespace
+        ├── services/
+        │   └── provider.php        # Dependency injection service provider
+        └── src/
+            └── Extension/
+                └── Helloworld.php  # Modern namespaced plugin class
 ```
 
 ## Development Notes
 
-- The plugin uses Joomla 5’s new `onBeforeApiRoute` event to register routes.
-- No additional routing files or legacy hooks are needed for Joomla 5.
-- The class name **must** be `PlgWebservicesHelloworld`, and the plugin folder and filenames should be lowercase.
-- **Troubleshooting is ongoing!**
+### Modern Joomla 5 Implementation
+- Uses **PSR-4 namespace structure** with `Joomla\Plugin\Webservices\Helloworld`
+- Implements **SubscriberInterface** for modern event handling  
+- Uses **service provider pattern** for dependency injection
+- Follows **Joomla 5 conventions** for webservice plugins
+
+### Key Technical Details
+- The plugin uses Joomla 5's `onBeforeApiRoute` event to register routes
+- Event handler receives `BeforeApiRouteEvent` parameter for proper event handling
+- Service provider manages plugin instantiation and dependencies
+- No additional routing files or legacy hooks are needed for Joomla 5
+- Plugin element name matches the folder name: `helloworld`
 
 ## Resources
 
