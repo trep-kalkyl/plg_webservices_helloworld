@@ -11,7 +11,7 @@
 namespace Joomla\Plugin\WebServices\Helloworld\Extension;
 
 use Joomla\CMS\Plugin\CMSPlugin;
-use Joomla\Component\Webservices\Api\Event\BeforeApiRouteEvent;
+use Joomla\CMS\Event\Application\BeforeApiRouteEvent;
 use Joomla\Event\SubscriberInterface;
 
 // phpcs:disable PSR1.Files.SideEffects
