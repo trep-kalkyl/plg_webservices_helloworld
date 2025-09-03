@@ -8,7 +8,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Joomla\Plugin\Webservices\Helloworld\Extension;
+namespace Joomla\Plugin\WebServices\Helloworld\Extension;
 
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\Component\Webservices\Api\Event\BeforeApiRouteEvent;
