@@ -4,7 +4,10 @@
     <author>Your Name</author>
     <version>1.0.0</version>
     <description>Minimal webservice plugin for Joomla 5 testing</description>
+    <namespace path="src">Joomla\Plugin\Webservices\Helloworld</namespace>
     <files>
         <filename plugin="helloworld">helloworld.php</filename>
+        <folder>services</folder>
+        <folder>src</folder>
     </files>
 </extension>
