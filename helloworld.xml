@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension type="plugin" group="webservices" method="upgrade">
-    <name>plg_webservices_helloworld</name>
-    <author>Your Name</author>
-    <creationDate>2024-09</creationDate>
-    <copyright>(C) 2024 Your Company</copyright>
-    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <authorEmail>your.email@example.com</authorEmail>
-    <authorUrl>www.example.com</authorUrl>
-    <version>1.0.0</version>
-    <description>PLG_WEBSERVICES_HELLOWORLD_XML_DESCRIPTION</description>
-    <namespace path="src">Joomla\Plugin\WebServices\Helloworld</namespace>
-    <files>
-        <folder plugin="helloworld">services</folder>
-        <folder>src</folder>
-    </files>
+	<name>plg_webservices_helloworld</name>
+	<author>trep-kalkyl</author>
+	<creationDate>2024-09</creationDate>
+	<license>Free for all</license>
+	<version>1.0.0</version>
+	<description>PLG_WEBSERVICES_HELLOWORLD_XML_DESCRIPTION</description>
+	<namespace path="src">TrepKalkyl\Plugin\Webservices\Helloworld</namespace>
+	<files>
+		<folder plugin="helloworld">services</folder>
+		<folder>src</folder>
+	</files>
 </extension>
