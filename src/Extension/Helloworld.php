@@ -22,16 +22,13 @@ final class Helloworld extends CMSPlugin implements SubscriberInterface
     {
         $router = $event->getRouter();
 
-        // Registrera controllern först
-        $router->addNamespace('Joomla\\Plugin\\WebServices\\Helloworld\\Controller', JPATH_PLUGINS . '/webservices/helloworld/src/Controller');
-        
-        // Skapa route som pekar på din controller
+        // Skapa en route som använder com_content's struktur
         $route = new Route(
             ['GET'],
             'v1/helloworld/ping',
-            'helloworld.ping',
+            'articles.displayList', // Använd befintlig controller
             [],
-            ['component' => 'com_plugins'] // Använd com_plugins som komponent
+            ['component' => 'com_content', 'view' => 'articles']
         );
 
         $router->addRoute($route);
