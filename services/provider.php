@@ -4,43 +4,63 @@
  * @package     Joomla.Plugin
  * @subpackage  Webservices.Helloworld
  *
- * @copyright   (C) 2023 Open Source Matters, Inc. <https://www.joomla.org>
+ * @copyright   (C) 2024 Open Source Matters, Inc. <https://www.joomla.org>
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-defined('_JEXEC') or die;
+namespace Joomla\Plugin\WebServices\Helloworld\Extension;
 
-use Joomla\CMS\Extension\PluginInterface;
-use Joomla\CMS\Factory;
-use Joomla\CMS\Plugin\PluginHelper;
-use Joomla\DI\Container;
-use Joomla\DI\ServiceProviderInterface;
-use Joomla\Event\DispatcherInterface;
-use Joomla\Plugin\WebServices\Helloworld\Extension\Helloworld;
+use Joomla\CMS\Event\Application\BeforeApiRouteEvent;
+use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\Event\SubscriberInterface;
+use Joomla\Router\Route;
 
-return new class () implements ServiceProviderInterface {
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
+/**
+ * Web Services adapter for Hello World plugin.
+ *
+ * @since  1.0.0
+ */
+final class Helloworld extends CMSPlugin implements SubscriberInterface
+{
     /**
-     * Registers the service provider with a DI container.
+     * Returns an array of events this subscriber will listen to.
      *
-     * @param   Container  $container  The DI container.
+     * @return  array
+     *
+     * @since   1.0.0
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            'onBeforeApiRoute' => 'onBeforeApiRoute',
+        ];
+    }
+
+    /**
+     * Registers Hello World API routes in the application
+     *
+     * @param   BeforeApiRouteEvent  $event  The event object
      *
      * @return  void
      *
-     * @since   5.0.0
+     * @since   1.0.0
      */
-    public function register(Container $container): void
+    public function onBeforeApiRoute(BeforeApiRouteEvent $event): void
     {
-        $container->set(
-            PluginInterface::class,
-            function (Container $container) {
-                $plugin = new Helloworld(
-                    $container->get(DispatcherInterface::class),
-                    (array) PluginHelper::getPlugin('webservices', 'helloworld')
-                );
-                $plugin->setApplication(Factory::getApplication());
+        $router = $event->getRouter();
 
-                return $plugin;
+        $route = new Route(
+            ['GET'],
+            'v1/helloworld/ping',
+            function () {
+                return ['hello' => 'world'];
             }
         );
+
+        $router->addRoute($route);
     }
-};
+}
